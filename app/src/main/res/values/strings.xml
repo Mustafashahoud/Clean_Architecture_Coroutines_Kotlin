@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CleanArchKotlin</string>
+    <string name="title_movies">movies</string>
+</resources>
