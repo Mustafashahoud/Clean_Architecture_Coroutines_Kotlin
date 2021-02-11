@@ -2,20 +2,16 @@ package com.android.mustafa.dynamicfeatures.movies.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.android.mustafa.cleanarchapp.CleanArchApp
 import com.android.mustafa.cleanarchapp.R
-import com.android.mustafa.core.di.AppViewModelFactory
-import com.android.mustafa.core.di.DaggerCoreComponent
 import com.android.mustafa.dynamicfeatures.movies.di.DaggerMoviesComponent
-import com.android.mustafa.dynamicfeatures.movies.di.MoviesComponent
 import javax.inject.Inject
 
-class MoviesFragment: Fragment(R.layout.fragment_movies) {
+class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -39,9 +35,11 @@ class MoviesFragment: Fragment(R.layout.fragment_movies) {
     }
 
     private fun subscribeResults() {
-        viewModel.movieListLiveData.observe(viewLifecycleOwner) {
-            if (it.data != null)
-            Log.d("MoviesFragment", it.data.toString())
-        }
+
+
+//        viewModel.movieListLiveData.observe(viewLifecycleOwner) {
+////            if (it.data != null)
+////            Log.d("MoviesFragment", it.data.toString())
+//        }
     }
 }

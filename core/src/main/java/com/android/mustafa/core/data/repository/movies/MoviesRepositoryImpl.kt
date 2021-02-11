@@ -17,7 +17,7 @@ class MoviesRepositoryImpl @Inject constructor(
     private val db: CleanArchDatabase
 ) : MoviesRepository {
 
-    // TODO this is super ugly, make smth like https://github.com/Mustafashahoud/MoviesApp/blob/coroutines-flow/app/src/main/java/com/mustafa/movieguideapp/repository/NetworkBoundRepository.kt
+    // this is super ugly, make smth like https://github.com/Mustafashahoud/MoviesApp/blob/coroutines-flow/app/src/main/java/com/mustafa/movieguideapp/repository/NetworkBoundRepository.kt
     override suspend fun getMovies(page: Int): Result<List<Movie>> {
         //if it is not expired get it from cache
         if (!moviesCacheDataSource.isCacheExpiredOrNotExist(page)) {
@@ -58,15 +58,15 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMovies(): Result<List<Movie>> {
-        TODO("Not yet implemented")
+        return Result.Success(arrayListOf())
     }
 
     override suspend fun clearMovies() {
-        TODO("Not yet implemented")
+
     }
 
     override suspend fun saveMovies(movies: List<Movie>) {
-        TODO("Not yet implemented")
+
     }
 
 }

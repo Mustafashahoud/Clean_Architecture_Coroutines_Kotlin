@@ -9,14 +9,13 @@ import ProductFlavorProduction
 import ProductFlavorQA
 import dependencies.AnnotationProcessorsDependencies
 import dependencies.Dependencies
+import extensions.implementation
 
 plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
     id("kotlin-allopen")
-    id("com.vanniktech.android.junit.jacoco")
-    id("com.vanniktech.dependency.graph.generator")
 }
 
 android {
@@ -68,12 +67,13 @@ android {
     }
 }
 
-junitJacoco {
-    includeNoLocationClasses = true
-}
+//junitJacoco {
+//    includeNoLocationClasses = true
+//}
 
 dependencies {
 //    implementation(Dependencies.KOTLIN)
+//    implementation(Dependencies.KOTLIN_REFLECT)
     implementation(Dependencies.COROUTINES)
     implementation(Dependencies.COROUTINES_ANDROID)
     implementation(Dependencies.DAGGER)

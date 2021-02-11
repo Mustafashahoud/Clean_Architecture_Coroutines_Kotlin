@@ -5,9 +5,9 @@ plugins {
     id("commons.android-library")
 }
 
-junitJacoco {
-    excludes = listOf("**/extensions/NavigationExtensions*.*")
-}
+//junitJacoco {
+//    excludes = listOf("**/extensions/NavigationExtensions*.*")
+//}
 
 dependencies {
 

@@ -1,16 +1,11 @@
 package commons
 
 import BuildAndroidConfig
-import extensions.addTestsDependencies
 import BuildModules
-import BuildProductDimensions
-import ProductFlavorDevelop
-import ProductFlavorProduction
-import ProductFlavorQA
-import com.android.build.api.dsl.CommonExtension.*
 import dependencies.AnnotationProcessorsDependencies
 import dependencies.Dependencies
-import org.gradle.api.artifacts.dsl.DependencyHandler
+import extensions.addTestsDependencies
+import extensions.implementation
 
 plugins {
     id("com.android.dynamic-feature")
@@ -18,8 +13,6 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-allopen")
     id("androidx.navigation.safeargs.kotlin")
-    id("com.vanniktech.android.junit.jacoco")
-    id("com.vanniktech.dependency.graph.generator")
 }
 
 allOpen {
@@ -47,6 +40,7 @@ android {
     }
 
     dataBinding {
+        @Suppress("DEPRECATION")
         isEnabled = true
     }
 
@@ -86,21 +80,22 @@ android {
     }
 }
 
-junitJacoco {
-    includeNoLocationClasses = true
-}
+//junitJacoco {
+//    includeNoLocationClasses = true
+//}
 
 dependencies {
     implementation(project(BuildModules.APP))
     implementation(project(BuildModules.CORE))
     implementation(project(BuildModules.Commons.UI))
 
+//    implementation(Dependencies.KOTLIN)
+//    implementation(Dependencies.KOTLIN_REFLECT)
     implementation(Dependencies.APPCOMPAT)
     implementation(Dependencies.COROUTINES)
     implementation(Dependencies.COROUTINES_ANDROID)
     implementation(Dependencies.NAVIGATION_FRAGMENT)
     implementation(Dependencies.NAVIGATION_UI)
-    implementation(Dependencies.LIFECYCLE_EXTENSIONS)
     implementation(Dependencies.LIFECYCLE_VIEWMODEL)
     implementation(Dependencies.LIFECYCLE_LIVEDATA)
     implementation(Dependencies.CORE_KTX)

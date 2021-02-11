@@ -12,8 +12,6 @@ plugins {
     id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.KOTLIN_ALLOPEN)
     id(BuildPlugins.NAVIGATION_SAFE_ARGS)
-    id(BuildPlugins.JACOCO)
-    id(BuildPlugins.GRAPH_GENERATOR)
 }
 
 allOpen {
@@ -100,13 +98,15 @@ android {
     }
 }
 
-junitJacoco {
-    includeNoLocationClasses = true
-}
+//junitJacoco {
+//    includeNoLocationClasses = true
+//}
 
 dependencies {
     implementation(project(BuildModules.CORE))
 
+//    implementation(Dependencies.KOTLIN)
+//    implementation(Dependencies.KOTLIN_REFLECT)
     implementation(Dependencies.APPCOMPAT)
     implementation(Dependencies.MATERIAL)
     implementation(Dependencies.CONSTRAIN_LAYOUT)
@@ -115,6 +115,8 @@ dependencies {
     implementation(Dependencies.LOGGING)
     implementation(Dependencies.PLAY_CORE)
     implementation(Dependencies.DAGGER)
+
+//    implementation ("org.jetbrains.kotlin:kotlin-reflect:1.4.21")
 
     debugImplementation(DebugDependencies.LEAKCANARY)
 

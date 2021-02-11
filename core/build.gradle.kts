@@ -36,7 +36,6 @@ dependencies {
     //https://stackoverflow.com/questions/48121275/android-supertypes-of-the-following-classes-can-not-be-resolved-room-persis
     api(Dependencies.ROOM)
     api(Dependencies.ROOM_KTX)
-    implementation(Dependencies.LIFECYCLE_EXTENSIONS)
     implementation(Dependencies.NAVIGATION_UI)
     implementation(Dependencies.FRAGMENT_KTX)
     implementation(Dependencies.CORE_KTX)

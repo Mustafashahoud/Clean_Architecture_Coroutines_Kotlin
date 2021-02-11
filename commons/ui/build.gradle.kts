@@ -5,12 +5,11 @@ plugins {
     id("commons.android-library")
 }
 
-junitJacoco {
-    excludes = listOf("**/extensions/NavigationExtensions*.*")
-}
+//junitJacoco {
+//    excludes = listOf("**/extensions/NavigationExtensions*.*")
+//}
 
 dependencies {
-    implementation(Dependencies.LIFECYCLE_EXTENSIONS)
     implementation(Dependencies.LIFECYCLE_LIVEDATA)
     implementation(Dependencies.LIFECYCLE_VIEWMODEL)
     implementation(Dependencies.CONSTRAIN_LAYOUT)
