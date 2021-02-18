@@ -1,4 +1,5 @@
 import dependencies.Dependencies
+import dependencies.TestDependencies
 import extensions.implementation
 
 plugins {
@@ -11,5 +12,7 @@ plugins {
 
 dependencies {
 
+    implementation(TestDependencies.COROUTINES_TEST)
+    implementation(Dependencies.RETROFIT)
 
 }

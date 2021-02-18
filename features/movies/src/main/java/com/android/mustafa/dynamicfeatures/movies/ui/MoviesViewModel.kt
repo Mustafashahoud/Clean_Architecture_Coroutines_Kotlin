@@ -15,8 +15,13 @@ class MoviesViewModel @Inject constructor(
 
 
     private var pageNumber = 1
-
     private val moviePageLiveData: MutableLiveData<Int> = MutableLiveData()
+
+    init {
+        moviePageLiveData.value = 1
+    }
+
+
     private val _movieListLiveData = MutableLiveData<Resource<List<Movie>>>()
     val movieListLiveData = moviePageLiveData.switchMap { page ->
         launchOnViewModelScope {

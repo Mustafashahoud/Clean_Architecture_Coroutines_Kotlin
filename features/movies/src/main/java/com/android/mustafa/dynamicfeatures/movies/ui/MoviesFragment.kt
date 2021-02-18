@@ -20,7 +20,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.postPage(1)
         subscribeResults()
     }
 
