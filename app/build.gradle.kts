@@ -11,7 +11,6 @@ plugins {
     id(BuildPlugins.KOTLIN_ANDROID)
     id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.KOTLIN_ALLOPEN)
-    id(BuildPlugins.NAVIGATION_SAFE_ARGS)
 }
 
 allOpen {
@@ -62,13 +61,15 @@ android {
     )
 
     buildFeatures {
-        dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
@@ -78,6 +79,12 @@ android {
         lintConfig = rootProject.file("lint.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = true
+    }
+
+
+    packagingOptions {
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/LGPL2.1")
     }
 
     testOptions {
@@ -105,18 +112,15 @@ android {
 dependencies {
     implementation(project(BuildModules.CORE))
 
-//    implementation(Dependencies.KOTLIN)
-//    implementation(Dependencies.KOTLIN_REFLECT)
     implementation(Dependencies.APPCOMPAT)
     implementation(Dependencies.MATERIAL)
     implementation(Dependencies.CONSTRAIN_LAYOUT)
+    implementation(Dependencies.RECYCLE_VIEW)
     implementation(Dependencies.NAVIGATION_FRAGMENT)
     implementation(Dependencies.TIMBER)
     implementation(Dependencies.LOGGING)
     implementation(Dependencies.PLAY_CORE)
     implementation(Dependencies.DAGGER)
-
-//    implementation ("org.jetbrains.kotlin:kotlin-reflect:1.4.21")
 
     debugImplementation(DebugDependencies.LEAKCANARY)
 

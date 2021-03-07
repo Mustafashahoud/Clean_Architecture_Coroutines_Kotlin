@@ -6,42 +6,22 @@ import com.android.mustafa.core.data.database.movies.Movie
 import com.android.mustafa.core.data.preference.PreferencesHelper
 import com.android.mustafa.core.data.repository.movies.source.local.MoviesCacheDataSource
 import com.android.mustafa.core.data.repository.movies.source.remote.MoviesRemoteDataSource
-import com.android.mustafa.core.domain.base.Result
 import com.android.mustafa.core.domain.movies.repository.MoviesRepository
+import com.android.mustafa.core.util.NetworkBoundResource
+import com.android.mustafa.core.util.NetworkHandler
+import com.android.mustafa.domain.commons.EitherResult
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+
 
 class MoviesRepositoryImpl @Inject constructor(
     private val moviesCacheDataSource: MoviesCacheDataSource,
     private val moviesRemoteDataSource: MoviesRemoteDataSource,
+    private val networkHandler: NetworkHandler,
     private val preference: PreferencesHelper,
     private val db: CleanArchDatabase
 ) : MoviesRepository {
-
-    // this is super ugly, make smth like https://github.com/Mustafashahoud/MoviesApp/blob/coroutines-flow/app/src/main/java/com/mustafa/movieguideapp/repository/NetworkBoundRepository.kt
-    override suspend fun getMovies(page: Int): Result<List<Movie>> {
-        //if it is not expired get it from cache
-        if (!moviesCacheDataSource.isCacheExpiredOrNotExist(page)) {
-            return moviesCacheDataSource.getMoviesForPages((1..page).toList())
-        }
-
-        // Or fetch it from network
-        val movies: Result<List<Movie>> = moviesRemoteDataSource.fetchMovies(page)
-
-        prepareData(page, movies.data)
-
-        db.withTransaction {
-            //clear in case Expiration
-            moviesCacheDataSource.clearMovies(page)
-
-            //Save the new data
-            moviesCacheDataSource.saveMoviesPerPage(page, movies.data ?: emptyList()).also {
-                preference.setMoviesPageLastCacheTime(page.toString(), System.currentTimeMillis())
-            }
-        }
-
-        return moviesCacheDataSource.getMoviesForPages((1..page).toList())
-    }
-
     private fun prepareData(page: Int, data: List<Movie>?) {
         if (!data.isNullOrEmpty()) {
             data.forEach { it.page = page }
@@ -53,20 +33,45 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 
     companion object {
-        private const val TMDB_API_STARTING_PAGE_INDEX = 1
         private const val TMDB_API_PAGE_SIZE = 20
     }
 
-    override suspend fun getMovies(): Result<List<Movie>> {
-        return Result.Success(arrayListOf())
+    @ExperimentalCoroutinesApi
+    override suspend fun getMovies(page: Int): Flow<EitherResult<List<Movie>>> {
+        return object : NetworkBoundResource<List<Movie>>(networkHandler = networkHandler) {
+            override suspend fun apiCall(): List<Movie> {
+                return moviesRemoteDataSource.fetchMovies(page)
+            }
+
+            override suspend fun saveFetchResult(data: List<Movie>) {
+                prepareData(page, data)
+                db.withTransaction {
+                    //clear in case Expiration
+                    moviesCacheDataSource.clearMovies(page)
+
+                    //Save the new data
+                    moviesCacheDataSource.saveMoviesPerPage(page, data).also {
+                        preference.setMoviesPageLastCacheTime(
+                            page.toString(),
+                            System.currentTimeMillis()
+                        )
+                    }
+                }
+            }
+
+            override suspend fun localFetch(): List<Movie> {
+                return moviesCacheDataSource.getMoviesPerPage(page)
+            }
+
+            override fun shouldFetch(): Boolean {
+                return moviesCacheDataSource.isCacheExpiredOrNotExist(page)
+            }
+
+            override suspend fun localFetchAll(): List<Movie> {
+                return moviesCacheDataSource.getMoviesForPages((1..page).toList())
+            }
+
+        }.asFlow()
+
     }
-
-    override suspend fun clearMovies() {
-
-    }
-
-    override suspend fun saveMovies(movies: List<Movie>) {
-
-    }
-
 }

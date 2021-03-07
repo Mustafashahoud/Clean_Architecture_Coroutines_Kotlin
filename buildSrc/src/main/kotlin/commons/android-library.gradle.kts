@@ -10,6 +10,7 @@ import ProductFlavorQA
 import dependencies.AnnotationProcessorsDependencies
 import dependencies.Dependencies
 import extensions.implementation
+import org.gradle.api.internal.artifacts.ivyservice.dependencysubstitution.DefaultDependencySubstitutions
 
 plugins {
     id("com.android.library")
@@ -26,17 +27,17 @@ android {
         targetSdkVersion(BuildAndroidConfig.TARGET_SDK_VERSION)
     }
 
+    @Suppress("UnstableApiUsage")
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    @Suppress("UnstableApiUsage")
+    buildFeatures.viewBinding = true
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-
-    buildFeatures {
-        dataBinding = true
     }
 
 //    flavorDimensions(BuildProductDimensions.ENVIRONMENT)
@@ -55,12 +56,20 @@ android {
         }
     }
 
+    @Suppress("UnstableApiUsage")
+    packagingOptions {
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/LGPL2.1")
+    }
+
+    @Suppress("UnstableApiUsage")
     lintOptions {
         lintConfig = rootProject.file(".lint/config.xml")
         isCheckAllWarnings = true
         isWarningsAsErrors = true
     }
 
+    @Suppress("UnstableApiUsage")
     testOptions {
         unitTests.isIncludeAndroidResources = true
         unitTests.isReturnDefaultValues = true
@@ -75,7 +84,7 @@ dependencies {
 //    implementation(Dependencies.KOTLIN)
 //    implementation(Dependencies.KOTLIN_REFLECT)
     implementation(Dependencies.COROUTINES)
-    implementation(Dependencies.COROUTINES_ANDROID)
+//    implementation(Dependencies.COROUTINES_ANDROID)
     implementation(Dependencies.DAGGER)
     implementation(Dependencies.TIMBER)
 

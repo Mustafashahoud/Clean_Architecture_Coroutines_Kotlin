@@ -4,9 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import com.android.mustafa.commons.ui.ViewModelBase
 import com.android.mustafa.core.data.database.movies.Movie
-import com.android.mustafa.core.domain.base.Result
 import com.android.mustafa.core.domain.movies.usecase.GetMovies
+import com.android.mustafa.domain.commons.EitherResult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(
@@ -26,16 +27,27 @@ class MoviesViewModel @Inject constructor(
     val movieListLiveData = moviePageLiveData.switchMap { page ->
         launchOnViewModelScope {
             _movieListLiveData.postValue(Resource.Loading())
-            when (val result = getMovies.run(page)) {
-                is Result.Success -> _movieListLiveData.postValue(Resource.Success(result.data))
-                is Result.Error -> _movieListLiveData.postValue(Resource.Error(result.error))
+            getMovies(page).collect { result ->
+                when (result) {
+                    is EitherResult.Success -> _movieListLiveData.postValue(Resource.Success(result.data))
+                    is EitherResult.Failure -> _movieListLiveData.postValue(Resource.Error(result.errorEntity))
+                }
             }
             _movieListLiveData
         }
     }
 
-    fun postPage(pageNumber: Int) {
-        moviePageLiveData.postValue(pageNumber)
+    fun retry() {
+//        moviePageLiveData.value?.let {
+//            moviePageLiveData.postValue(it)
+//        }
+        moviePageLiveData.postValue(1)
+    }
+
+    fun loadMore() {
+        pageNumber++
+        moviePageLiveData.value = pageNumber
+
     }
 
 

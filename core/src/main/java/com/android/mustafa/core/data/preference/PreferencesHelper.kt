@@ -16,11 +16,8 @@ class PreferencesHelper @Inject constructor(context: Context) {
         private const val PREF_BUFFER_PACKAGE_NAME = "com.android.mustafa.core.data.preference"
     }
 
-    private val bufferPref: SharedPreferences
-
-    init {
-        bufferPref = context.getSharedPreferences(PREF_BUFFER_PACKAGE_NAME, Context.MODE_PRIVATE)
-    }
+    private val bufferPref: SharedPreferences =
+        context.getSharedPreferences(PREF_BUFFER_PACKAGE_NAME, Context.MODE_PRIVATE)
 
     /**
      * Get the value for a specific key

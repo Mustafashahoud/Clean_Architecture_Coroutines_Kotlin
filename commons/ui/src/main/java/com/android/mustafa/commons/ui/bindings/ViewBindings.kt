@@ -1,37 +1,44 @@
 package com.android.mustafa.commons.ui.bindings
 
 import android.view.View
-import android.view.View.GONE
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
-import androidx.databinding.BindingAdapter
+import android.view.View.*
 
-/**
- * Simplification to check and setup view as visible.
- */
-@set:BindingAdapter("visible")
-var View.visible
-    get() = visibility == VISIBLE
-    set(value) {
-        visibility = if (value) VISIBLE else GONE
-    }
+///**
+// * Simplification to check and setup view as visible.
+// */
+//var View.visible
+//    get() = visibility == VISIBLE
+//    set(value) {
+//        visibility = if (value) VISIBLE else GONE
+//    }
+//
+///**
+// * Simplification to check and setup view as gone.
+// */
+//var View.gone
+//    get() = visibility == GONE
+//    set(value) {
+//        visibility = if (value) GONE else VISIBLE
+//    }
+//
+///**
+// * Simplification to check and setup view as invisible.
+// */
+//var View.invisible
+//    get() = visibility == INVISIBLE
+//    set(value) {
+//        visibility = if (value) INVISIBLE else VISIBLE
+//    }
+//
+//fun showHide(view: View, show: Boolean) {
+//    view.visibility = if (show) VISIBLE else View.INVISIBLE
+//}
 
-/**
- * Simplification to check and setup view as gone.
- */
-@set:BindingAdapter("gone")
-var View.gone
-    get() = visibility == GONE
-    set(value) {
-        visibility = if (value) GONE else VISIBLE
-    }
+fun View.show() {
+    visibility = VISIBLE
+}
 
-/**
- * Simplification to check and setup view as invisible.
- */
-@set:BindingAdapter("invisible")
-var View.invisible
-    get() = visibility == INVISIBLE
-    set(value) {
-        visibility = if (value) INVISIBLE else VISIBLE
-    }
+fun View.hide() {
+    visibility = GONE
+}
+

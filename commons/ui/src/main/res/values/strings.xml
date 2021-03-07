@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="retry">Retry</string>
+    <string name="go_back">Go back</string>
+</resources>

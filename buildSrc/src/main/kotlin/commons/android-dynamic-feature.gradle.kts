@@ -6,13 +6,13 @@ import dependencies.AnnotationProcessorsDependencies
 import dependencies.Dependencies
 import extensions.addTestsDependencies
 import extensions.implementation
+import org.gradle.api.internal.artifacts.ivyservice.dependencysubstitution.DefaultDependencySubstitutions
 
 plugins {
     id("com.android.dynamic-feature")
     id("kotlin-android")
     id("kotlin-kapt")
     id("kotlin-allopen")
-    id("androidx.navigation.safeargs.kotlin")
 }
 
 allOpen {
@@ -39,15 +39,7 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    dataBinding {
-        @Suppress("DEPRECATION")
-        isEnabled = true
-    }
-
-
-//    buildFeatures {
-//        dataBinding = true
-//    }
+    buildFeatures.viewBinding = true
 
 //    flavorDimensions(BuildProductDimensions.ENVIRONMENT)
 //    productFlavors {
@@ -66,6 +58,11 @@ android {
         getByName("androidTest") {
             java.srcDir("src/androidTest/kotlin")
         }
+    }
+
+    packagingOptions {
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/LGPL2.1")
     }
 
     lintOptions {
@@ -90,17 +87,15 @@ dependencies {
     implementation(project(BuildModules.Commons.UI))
 
 //    implementation(Dependencies.KOTLIN)
-//    implementation(Dependencies.KOTLIN_REFLECT)
     implementation(Dependencies.APPCOMPAT)
     implementation(Dependencies.COROUTINES)
-    implementation(Dependencies.COROUTINES_ANDROID)
+//    implementation(Dependencies.COROUTINES_ANDROID)
     implementation(Dependencies.NAVIGATION_FRAGMENT)
     implementation(Dependencies.NAVIGATION_UI)
     implementation(Dependencies.LIFECYCLE_VIEWMODEL)
     implementation(Dependencies.LIFECYCLE_LIVEDATA)
     implementation(Dependencies.CORE_KTX)
     implementation(Dependencies.FRAGMENT_KTX)
-    implementation(Dependencies.CONSTRAIN_LAYOUT)
     implementation(Dependencies.DAGGER)
     implementation(Dependencies.TIMBER)
     implementation(Dependencies.LOGGING)

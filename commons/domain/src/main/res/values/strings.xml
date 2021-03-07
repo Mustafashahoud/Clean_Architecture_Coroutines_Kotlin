@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_title">Ooops! :(</string>
+    <string name="network_error_message">Unable to load the results.\nPlease, check your connection and try again.</string>
+    <string name="server_error_message">There is a problem in the server.\nPlease try again later</string>
+    <string name="unknown_error_message">Un unexpected error occurred.\nPlease try again later</string>
+</resources>

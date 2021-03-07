@@ -6,7 +6,7 @@ import com.android.mustafa.core.BuildConfig
 import com.android.mustafa.core.data.network.services.TMDBService
 import com.android.mustafa.core.data.network.util.RequestInterceptor
 import com.android.mustafa.core.di.CoreComponent
-import com.android.mustafa.core.errorHandling.NetworkHandler
+import com.android.mustafa.core.util.NetworkHandler
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

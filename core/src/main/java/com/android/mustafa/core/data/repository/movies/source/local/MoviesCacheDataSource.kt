@@ -33,22 +33,25 @@ class MoviesCacheDataSource @Inject constructor(
         }
     }
 
-    suspend fun getAllMovies(): Result<List<Movie>> {
-        return query {
-            movieDao.getAllMovies()
-        }
+    suspend fun getAllMovies(): List<Movie> {
+        return  movieDao.getAllMovies()
+//        return query {
+//            movieDao.getAllMovies()
+//        }
     }
 
-    suspend fun getMoviesForPages(pages: List<Int>): Result<List<Movie>> {
-        return query {
-            movieDao.getMoviesForPages(pages)
-        }
+    suspend fun getMoviesForPages(pages: List<Int>): List<Movie> {
+        return movieDao.getMoviesForPages(pages)
+//        return query {
+//            movieDao.getMoviesForPages(pages)
+//        }
     }
 
-    suspend fun getMoviesPerPage(page: Int): Result<List<Movie>> {
-        return query {
-            movieDao.getMoviesPerPage(page)
-        }
+    suspend fun getMoviesPerPage(page: Int): List<Movie> {
+        return movieDao.getMoviesPerPage(page)
+//        return query {
+//            movieDao.getMoviesPerPage(page)
+//        }
     }
 
     private fun setLastCacheTime(key: Int, lastCache: Long) {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RetryStyle" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/teal_200</item>
+        <item name="android:text">@string/retry</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+</resources>

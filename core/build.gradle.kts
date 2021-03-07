@@ -32,6 +32,10 @@ android {
 }
 
 dependencies {
+
+    implementation(project(BuildModules.Commons.DOMAIN))
+    implementation(project(BuildModules.Commons.UI))
+
     // Api instead of implementation
     //https://stackoverflow.com/questions/48121275/android-supertypes-of-the-following-classes-can-not-be-resolved-room-persis
     api(Dependencies.ROOM)

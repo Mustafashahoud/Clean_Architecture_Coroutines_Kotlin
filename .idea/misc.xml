@@ -10,6 +10,7 @@
     <option name="modulesWithSuppressedNotConfigured">
       <set>
         <option value="CleanArchKotlin.core" />
+        <option value="CleanArchKotlin.features.movies" />
       </set>
     </option>
   </component>

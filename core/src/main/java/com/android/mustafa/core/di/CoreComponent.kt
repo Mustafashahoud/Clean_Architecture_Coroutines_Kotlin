@@ -8,7 +8,7 @@ import com.android.mustafa.core.di.modules.ContextModule
 import com.android.mustafa.core.di.modules.DatabaseModule
 import com.android.mustafa.core.di.modules.NetworkModule
 import com.android.mustafa.core.di.modules.UtilsModule
-import com.android.mustafa.core.errorHandling.NetworkHandler
+import com.android.mustafa.core.util.NetworkHandler
 import dagger.Component
 import javax.inject.Singleton
 
